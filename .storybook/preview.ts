@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/vue3-vite'
 import './global.css'
+import './fluid-mixins.scss'
 
 const preview: Preview = {
   parameters: {
