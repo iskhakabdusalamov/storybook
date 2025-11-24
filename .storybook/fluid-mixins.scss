@@ -1,0 +1,114 @@
+@use "sass:math";
+
+$viewport-min: 375px !default;
+$viewport-max: 1920px !default;
+
+@function fluid-spacing($min-px, $max-px) {
+  @if $min-px == none or $min-px == null {
+    @return $max-px;
+  }
+
+  $min-value: math.div($min-px, 1px);
+  $max-value: math.div($max-px, 1px);
+  $min-vw-value: math.div($viewport-min, 1px);
+  $max-vw-value: math.div($viewport-max, 1px);
+
+  $slope: math.div($max-value - $min-value, $max-vw-value - $min-vw-value);
+  $y-axis-intersection: $min-value - $slope * $min-vw-value;
+
+  @return clamp(
+    #{$min-value}px,
+    #{$y-axis-intersection}px + #{$slope * 100}vw,
+    #{$max-value}px
+  );
+}
+
+@mixin fluid-horizontal($min-gap-px: null, $max-gap-px: null) {
+  display: flex;
+  flex-direction: row;
+
+  @if $min-gap-px != null and $max-gap-px != null {
+    column-gap: fluid-spacing($min-gap-px, $max-gap-px);
+  }
+}
+
+@mixin fluid-vertical($min-gap-px: null, $max-gap-px: null) {
+  display: flex;
+  flex-direction: column;
+
+  @if $min-gap-px != null and $max-gap-px != null {
+    row-gap: fluid-spacing($min-gap-px, $max-gap-px);
+  }
+}
+
+@mixin fluid-gap($min-px, $max-px, $direction: both) {
+  $value: fluid-spacing($min-px, $max-px);
+
+  @if $direction == both {
+    gap: $value;
+  } @else if $direction == row {
+    row-gap: $value;
+  } @else if $direction == column {
+    column-gap: $value;
+  }
+}
+
+@mixin fluid-margin($min-px, $max-px, $sides: all) {
+  $value: fluid-spacing($min-px, $max-px);
+
+  @if $sides == all {
+    margin: $value;
+  } @else if $sides == vertical {
+    margin-top: $value;
+    margin-bottom: $value;
+  } @else if $sides == horizontal {
+    margin-right: $value;
+    margin-left: $value;
+  } @else if $sides == top {
+    margin-top: $value;
+  } @else if $sides == right {
+    margin-right: $value;
+  } @else if $sides == bottom {
+    margin-bottom: $value;
+  } @else if $sides == left {
+    margin-left: $value;
+  }
+}
+
+@mixin fluid-border-radius($min-px, $max-px) {
+  border-radius: fluid-spacing($min-px, $max-px);
+}
+
+@mixin fluid-padding($min-px, $max-px, $sides: all) {
+  $value: fluid-spacing($min-px, $max-px);
+
+  @if $sides == all {
+    padding: $value;
+  } @else if $sides == vertical {
+    padding-top: $value;
+    padding-bottom: $value;
+  } @else if $sides == horizontal {
+    padding-right: $value;
+    padding-left: $value;
+  } @else if $sides == top {
+    padding-top: $value;
+  } @else if $sides == right {
+    padding-right: $value;
+  } @else if $sides == bottom {
+    padding-bottom: $value;
+  } @else if $sides == left {
+    padding-left: $value;
+  }
+}
+
+@mixin fluid-width($min-px, $max-px) {
+  width: fluid-spacing($min-px, $max-px);
+}
+
+@mixin fluid-height($min-px, $max-px) {
+  height: fluid-spacing($min-px, $max-px);
+}
+
+@mixin fluid-font-size($min-px, $max-px) {
+  font-size: fluid-spacing($min-px, $max-px);
+}

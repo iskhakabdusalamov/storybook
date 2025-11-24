@@ -107,45 +107,43 @@ const dates = [
 </template>
 
 <style scoped lang="scss">
+@use '../../.storybook/fluid-mixins.scss' as *;
+
 .calendar {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  @include fluid-vertical(16px, 16px);
+  @include fluid-padding(16px, 16px);
+  @include fluid-width(318px, 318px);
+  @include fluid-height(308px, 308px);
   border: 1px solid #d9d9d9;
   border-radius: 16px;
-  padding: 16px;
-  width: 318px;
-  height: 308px;
 }
 
 .block {
-  display: flex;
+  @include fluid-horizontal(16px, 16px);
   justify-content: center;
   align-items: center;
-  gap: 16px;
 }
 
 .select-group {
-  display: flex;
+  @include fluid-horizontal(8px, 8px);
+  @include fluid-width(182px, 182px);
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  width: 182px;
 }
 
 .month-field,
 .year-field {
-  display: flex;
+  @include fluid-horizontal;
   justify-content: center;
   align-items: center;
 }
 
 .arrow-left,
 .arrow-right {
+  @include fluid-padding(8px, 8px);
   cursor: pointer;
   border: none;
   background-color: transparent;
-  padding: 8px;
 }
 
 .table {
@@ -155,25 +153,25 @@ const dates = [
 }
 
 .week-day {
-  width: 40px;
-  height: 20px;
+  @include fluid-width(40px, 40px);
+  @include fluid-height(20px, 20px);
+  @include fluid-font-size(16px, 16px);
   color: #757575;
   font-weight: 400;
-  font-size: 16px;
   line-height: 1.6;
   font-family: 'Geist', sans-serif;
 }
 
 .date {
+  @include fluid-width(40px, 40px);
+  @include fluid-height(40px, 40px);
+  @include fluid-font-size(16px, 16px);
   cursor: pointer;
   border: none;
   border-radius: 8px;
   background-color: transparent;
-  width: 40px;
-  height: 40px;
   color: #1e1e1e;
   font-weight: 400;
-  font-size: 16px;
   line-height: 1.6;
 }
 
