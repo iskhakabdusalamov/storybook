@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix --cache",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",

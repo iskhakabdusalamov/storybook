@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const selectedDate = ref<string | null>(null)
 
-const selectDay = (day: string) => {
+const selectDate = (day: string) => {
   selectedDate.value = day
 }
 
@@ -44,44 +44,114 @@ const dates = [
 
 <template>
   <div class="calendar">
-    <div
-      v-for="weekDay in week"
-      :key="weekDay"
-      class="week"
-    >
-      <span class="week-day">
-        {{ weekDay }}
-      </span>
+    <div class="block">
+      <button class="arrow-left">
+        <img
+          src="/arrow-left.svg"
+          alt=""
+        />
+      </button>
+
+      <div class="select-group">
+        <button class="month-field">
+          <span>Sep</span>
+          <img
+            src="/arrow-bottom.svg"
+            alt=""
+          />
+        </button>
+
+        <button class="year-field">
+          <span>2025</span>
+          <img
+            src="/arrow-bottom.svg"
+            alt=""
+          />
+        </button>
+      </div>
+
+      <button class="arrow-right">
+        <img
+          src="/arrow-right.svg"
+          alt=""
+        />
+      </button>
     </div>
 
-    <div
-      v-for="day in dates"
-      :key="day"
-      class="dates"
-    >
-      <button
-        class="date"
-        :class="{ 'active-date': selectedDate === day }"
-        @click="selectDay(day)"
+    <div class="table">
+      <div
+        v-for="weekDay in week"
+        :key="weekDay"
+        class="week"
       >
-        {{ day }}
-      </button>
+        <span class="week-day">
+          {{ weekDay }}
+        </span>
+      </div>
+
+      <div
+        v-for="day in dates"
+        :key="day"
+        class="dates"
+      >
+        <button
+          class="date"
+          :class="{ 'active-date': selectedDate === day }"
+          @click="selectDate(day)"
+        >
+          {{ day }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  place-items: center;
-  gap: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   border: 1px solid #d9d9d9;
   border-radius: 16px;
   padding: 16px;
   width: 318px;
-  height: 286px;
-  text-align: center;
+  height: 308px;
+}
+
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.select-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 182px;
+}
+
+.month-field,
+.year-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow-left,
+.arrow-right {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 8px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  place-items: center;
 }
 
 .week-day {
