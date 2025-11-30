@@ -131,19 +131,52 @@ const dates = [
   align-items: center;
 }
 
-.month-field,
-.year-field {
+.month-field {
   @include fluid-horizontal;
+  @include fluid-padding(6px, 6px);
+  @include fluid-border-radius(8px, 8px);
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #d9d9d9;
+
+  span {
+    @include fluid-width(51px, 51px);
+    @include fluid-height(16px, 16px);
+    text-align: start;
+  }
+}
+
+.year-field {
+  @include fluid-horizontal;
+  @include fluid-padding(6px, 6px);
+  @include fluid-border-radius(8px, 8px);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #d9d9d9;
+
+  span {
+    @include fluid-width(51px, 51px);
+    @include fluid-height(16px, 16px);
+    text-align: start;
+  }
 }
 
 .arrow-left,
 .arrow-right {
-  @include fluid-padding(8px, 8px);
+  @include fluid-width(36px, 36px);
+  @include fluid-height(36px, 36px);
   cursor: pointer;
   border: none;
   background-color: transparent;
+
+  &:hover {
+    border-radius: 50%;
+    background-color: #f5f5f5;
+  }
 }
 
 .table {
@@ -155,7 +188,7 @@ const dates = [
 .week-day {
   @include fluid-width(40px, 40px);
   @include fluid-height(20px, 20px);
-  @include fluid-font-size(16px, 16px);
+  @include fluid-font-size(12px, 12px);
   color: #757575;
   font-weight: 400;
   line-height: 1.6;
