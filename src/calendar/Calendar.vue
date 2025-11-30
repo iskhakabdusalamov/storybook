@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const week = ['Пн', 'Вт', 'Ср', 'Чт', 'Пн', 'Сб', 'Вс']
+const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
-const dates = new Date().getDate()
+const today = new Date()
+const year = today.getFullYear()
+const month = today.getMonth()
 
-const selectedDate = ref<number | null>(null)
+const dayInMonth = new Date(year, month + 1, 0).getDate()
+
+const currentDay = today.getDate()
+
+const selectedDate = ref<number>(currentDay)
 
 const selectDate = (day: number) => {
   selectedDate.value = day
@@ -50,7 +56,7 @@ const selectDate = (day: number) => {
 
     <div class="table">
       <div
-        v-for="weekDay in week"
+        v-for="weekDay in weekDays"
         :key="weekDay"
         class="week"
       >
@@ -60,7 +66,7 @@ const selectDate = (day: number) => {
       </div>
 
       <div
-        v-for="day in dates"
+        v-for="day in dayInMonth"
         :key="day"
         class="dates"
       >
