@@ -7,8 +7,19 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
+      include: ['src/**/*.vi.test.ts'],
       exclude: [...configDefaults.exclude],
       root: fileURLToPath(new URL('./', import.meta.url)),
+
+      coverage: {
+        enabled: true,
+        provider: 'v8',
+        reporter: ['text', 'html'],
+        reportsDirectory: 'coverage',
+        include: ['src'],
+        exclude: ['src/**/*.stories.ts'],
+        all: true,
+      },
     },
   }),
 )
