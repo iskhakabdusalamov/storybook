@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 
 const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
-const monthsShort = [
+const shortMonths = [
   'Янв',
   'Февр',
   'Март',
@@ -23,7 +23,31 @@ const selectedMonth = ref(today.getMonth())
 const selectedYear = ref(today.getFullYear())
 const selectedDate = ref(today.getDate())
 
-const currentMonthName = computed(() => monthsShort[selectedMonth.value])
+function selectDate(day: number) {
+  selectedDate.value = day
+}
+
+function prevMonth() {
+  if (selectedMonth.value === 0) {
+    selectedMonth.value = 11
+    selectedYear.value -= 1
+  } else {
+    selectedMonth.value -= 1
+  }
+  selectedDate.value = 0
+}
+
+function nextMonth() {
+  if (selectedMonth.value === 11) {
+    selectedMonth.value = 0
+    selectedYear.value += 1
+  } else {
+    selectedMonth.value += 1
+  }
+  selectedDate.value = 0
+}
+
+const currentMonthName = computed(() => shortMonths[selectedMonth.value])
 const currentYear = computed(() => selectedYear.value)
 
 const dayInMonth = computed(() => {
@@ -48,30 +72,6 @@ const calendarDays = computed(() => {
 
   return daysArray
 })
-
-const selectDate = (day: number) => {
-  selectedDate.value = day
-}
-
-const prevMonth = () => {
-  if (selectedMonth.value === 0) {
-    selectedMonth.value = 11
-    selectedYear.value -= 1
-  } else {
-    selectedMonth.value -= 1
-  }
-  selectedDate.value = 0
-}
-
-const nextMonth = () => {
-  if (selectedMonth.value === 11) {
-    selectedMonth.value = 0
-    selectedYear.value += 1
-  } else {
-    selectedMonth.value += 1
-  }
-  selectedDate.value = 0
-}
 </script>
 
 <template>
@@ -137,7 +137,7 @@ const nextMonth = () => {
         <button
           v-if="day"
           class="calendar__day"
-          :class="{ 'calendar__date--active': selectedDate === day }"
+          :class="{ 'calendar__day--active': selectedDate === day }"
           @click="selectDate(day)"
         >
           {{ day }}
@@ -211,6 +211,7 @@ const nextMonth = () => {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     place-items: center;
+    min-height: calc(6 * 40px);
   }
 
   &__week-day {
