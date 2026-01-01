@@ -4,12 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "prepare": "husky",
-    "test": "vitest",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test": "vitest"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
